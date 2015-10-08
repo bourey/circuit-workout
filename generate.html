@@ -1,0 +1,85 @@
+<form name="form" layout-padding ng-submit="ctrl.generate()" ng-if="!ctrl.selected" style="max-width: 300px">
+	<md-input-container>
+		<label>Workout time per station</label>
+		<md-select ng-model="ctrl.workSecs">
+			<md-option value="45">45 seconds</md-option>
+			<md-option value="120">2 minutes</md-option>
+		</md-select>
+	</md-input-container>
+	<md-input-container>
+		<label>Rest between stations</label>
+		<md-select ng-model="ctrl.breakSecs">
+			<md-option value="15">15 seconds</md-option>
+			<md-option value="30">30 seconds</md-option>
+		</md-select>
+	</md-input-container>
+	<md-input-container>
+		<label>Exercises per round</label>
+		<md-select ng-model="ctrl.exercisesPerStation">
+			<md-option value="1">1</md-option>
+			<md-option value="2">2</md-option>
+		</md-select>
+	</md-input-container>	
+	<md-input-container>
+		<label>Stations per round</label>
+		<md-select ng-model="ctrl.stationsPerRound">
+			<md-option value="5">5</md-option>
+			<md-option value="10">10</md-option>
+		</md-select>
+	</md-input-container>	
+	<md-input-container>
+		<label>Rounds</label>
+		<md-select ng-model="ctrl.rounds">
+			<md-option value="1">1</md-option>
+			<md-option value="2">2</md-option>
+		</md-select>
+	</md-input-container>	
+	<md-input-container>
+		<md-checkbox ng-model="ctrl.requiresEquipment" aria-label="Equipment OK">
+			I'm at a gym
+		</md-checkbox>
+	</md-input-container>
+	<div>
+		<md-button class="md-primary" ng-click="form.submit()">Go!</md-button>
+	</div>
+</form>
+
+<div ng-if="ctrl.selected" layout-padding>
+	<div layout-center>
+		<md-button class="md-raised md-primary">Wooo workout! START!</md-button>
+	</div>
+
+  <md-grid-list
+        md-cols="12"
+        md-row-height="3:2"
+        md-gutter="12px" md-gutter-gt-sm="8px">
+    <md-grid-tile ng-repeat-start="exercise in ctrl.selected" class="work-block"
+        md-rowspan="2" md-colspan="3"
+        ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+        <div layout="column">
+	        <h3>{{exercise.name}}</h3>
+	      	<p>{{ctrl.workSecs}} seconds</p>
+      	</div>
+    </md-grid-tile>
+    <md-grid-tile ng-repeat-end class="rest-block"
+        md-rowspan="2" md-colspan="1" ng-if="!$last">
+        <div layout="column">
+	        <h3>Rest</h3>
+        	<p>{{ctrl.breakSecs}} seconds</p>
+        </div>
+    </md-grid-tile>
+    <md-grid-tile class="rest-block"
+        md-rowspan="2" md-colspan="3" layout-row>
+        <div layout="column">
+	      	<h3>Rest</h3>
+					<p>{{ctrl.workSecs + ctrl.breakSecs}} seconds</p>
+				</div>
+    </md-grid-tile>
+  </md-grid-list>	
+	<p>
+		<a href="javascript:;" ng-click="ctrl.generate()">
+			Ugh, no. I am not doing this.  Next workout, please . . .
+		</a>
+	</p>
+</div>
+

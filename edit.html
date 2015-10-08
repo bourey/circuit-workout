@@ -1,0 +1,29 @@
+<form name="form" ng-submit="ctrl.save()">
+	<md-input-container>
+		<label>Name</label>
+		<input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="10">
+
+		<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
+			<div ng-message="required">Name is required</div>
+		</div>
+
+		<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && ctrl.ng14">
+			<div ng-message="required">Name is required</div>
+			<div ng-messages-include="error.html"></div>
+		</div>
+
+	</md-input-container>
+	<md-input-container>
+		<label>Description</label>
+		<textarea ng-model="ctrl.exercise.description" rows="1"></textarea>
+	</md-input-container>
+	<md-input-container>
+		<md-checkbox ng-model="ctrl.exercise.requiresEquipment">
+			Requires equipment
+		</md-checkbox>
+	</md-input-container>
+	<div>
+		<md-button ng-click="ctrl.cancel()">Cancel</md-button>
+		<md-button ng-click="form.submit()" class="md-primary">Save</md-button>
+	</div>
+</form>
