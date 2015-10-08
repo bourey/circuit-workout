@@ -311,6 +311,7 @@
    * @param path – route configuration path
    * @returns {string|name} – a normalized (camelCase) directive name
    */
+  var autoCmpId = 0;
   function routeObjToRouteName(route, path) {
     var name = route.controllerAs;
 
@@ -328,7 +329,7 @@
     }
 
     if (name) {
-      name = name + 'AutoCmp';
+      name = name + (++autoCmpId) + 'AutoCmp';
     }
 
     return name;
