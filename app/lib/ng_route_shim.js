@@ -39,7 +39,6 @@
    * to configure Component Router.
    */
   function $RouteProvider() {
-    console.log('instantiate');
 
     var routes = [];
     var subscriptionFn = null;
@@ -252,7 +251,6 @@
       return $route;
     }];
 
-    console.log(this.when);
   }
 
   function $routeParamsFactory($router, $rootScope) {
