@@ -8,9 +8,9 @@ module.exports = function(grunt) {
         sourceMap: false
       },
       app: {
-        src: "exercise-service.ts",
-        out: "app-ts.js",
-        watch: "exercise-service.ts"
+        src: "app/**/*.ts",
+        out: "app/app-ts.js",
+        watch: "app/**/*.ts"
       }
     }
   });
