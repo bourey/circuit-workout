@@ -88,6 +88,31 @@ var ExerciseService = function() {
     },
   ];
 
+  var addExercise = function(name, types, requiresEquipment) {
+    var exercise = new Exercise(name, types, requiresEquipment);
+    exercise.id = this.exercises.length;
+    this.exercises.push(exercise);
+  };
+
+  addExercise("Mountain climbers", ["core"]);
+  addExercise("Jumping jacks", ["cardio"]);
+  addExercise("Biceps curl", ["upper"], true);
+  addExercise("Shoulder raise", ["upper"], true);
+  addExercise("Shoulder press", ["upper"], true);
+  addExercise("Bicpes curl + shoulder press", ["upper"], true);
+  addExercise("Squats", ["lower"]);
+  addExercise("Squat jumps", ["lower", "cardio"]);
+  addExercise("Lunges (forward)", ["lower"]);
+  addExercise("Lunges (back)", ["lower"]);
+  addExercise("Lunges (side)", ["lower"]);
+  addExercise("Lunge + biceps curl", ["lower", "upper"], true);
+  addExercise("Squat + shoulder raise", ["lower", "upper"], true);
+  addExercise("Row", ["upper"], true);
+  addExercise("Bridge", ["core"]);
+  addExercise("Hip raise", ["core"]);
+  addExercise("Plank", ["core"]);
+  addExercise("Side plank", ["core"]);
+
   // Automatically initialize unique IDs for each exercise that match their position in the array.
   this.exercises.forEach(function(exercise, i) {
     exercise.id = i;

@@ -15,29 +15,35 @@ app.service('exerciseService', ExerciseService);
 
 // CONTROLLERS
 
+// List controller
 var listCtrl = ['exercises', function(exercises) {
   this.exercises = exercises;
 }];
 
-var editCtrl = ['$location', 'exerciseService', 'exercise', function($location, exerciseService, exercise) {
-  this.exercise = exercise;
-  this.ng14 = angular.version.minor > 3;
+// Edit controller
+var editCtrl = ['$location', 'exerciseService', 'exercise', 
+  function($location, exerciseService, exercise) {
+    this.exercise = exercise;
+    this.ng14 = angular.version.minor > 3;
 
-  this.save = function() {
-    exerciseService.saveExercise(this.exercise);
-    $location.path('/');
-  }
-}];
+    this.save = function() {
+      exerciseService.saveExercise(this.exercise);
+      $location.path('/');
+    }
+  }];
 
+// Generate workout controller
 var generateCtrl = ['exerciseService', function(exerciseService) {
   this.breakSecs = 15;
   this.workSecs = 45;
-  this.rounds = 10;
-  this.allowEquipment = false;
+  this.exercisesPerStation = 1;
+  this.stationsPerRound = 10;
+  this.rounds = 2;
+  this.allowEquipment = true;
 
   this.generate = function() {
-    this.selected = exerciseService.getWorkout(10, true);
-  };
+    this.selected = exerciseService.getWorkout(this.stationsPerRound, this.allowEquipment);
+  }.bind(this);
 }];
 
 
@@ -63,7 +69,6 @@ app.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'edit.html',
       resolve: { 
         exercise: ['$route', 'exerciseService', function($route, exerciseService) {
-          console.log($route);
           return exerciseService.getExercise($route.current.params.id);
         }]},
     }).when('/generate', {
