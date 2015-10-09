@@ -309,8 +309,7 @@ function dashCase(str) {
 }
 
 angular.module('ngComponentRouter').
-//    value('$route', null). // can be overloaded with ngRouteShim
-    factory('$router', ['$q', '$location', '$$directiveIntrospector', '$browser', '$rootScope', '$injector', '$route', routerFactory]);
+    factory('$router', ['$q', '$location', '$$directiveIntrospector', '$browser', '$rootScope', '$injector', routerFactory]);
 
 function routerFactory($q, $location, $$directiveIntrospector, $browser, $rootScope, $injector) {
 
@@ -890,7 +889,7 @@ var TouchMap = (function () {
         var _this = this;
         var unused = StringMapWrapper.create();
         var keys = StringMapWrapper.keys(this.keys);
-        keys.forEach(function (key) { return unused[key] = StringMapWrapper.get(_this.map, key); });
+        ListWrapper.forEach(keys, function (key) { unused[key] = StringMapWrapper.get(_this.map, key); });
         return unused;
     };
     return TouchMap;
@@ -1604,7 +1603,7 @@ function stringifyAux(instruction) {
  */
 var ComponentInstruction = (function () {
     /**
-     * @internal
+     * @private
      */
     function ComponentInstruction(urlPath, urlParams, _recognizer, params) {
         if (params === void 0) { params = null; }
@@ -1784,8 +1783,7 @@ var RouteRegistry = (function () {
             for (var i = 0; i < annotations.length; i++) {
                 var annotation = annotations[i];
                 if (annotation instanceof route_config_impl_1.RouteConfig) {
-                    var routeCfgs = annotation.configs;
-                    routeCfgs.forEach(function (config) { return _this.config(component, config); });
+                    ListWrapper.forEach(annotation.configs, function (config) { return _this.config(component, config); });
                 }
             }
         }
@@ -1813,7 +1811,7 @@ var RouteRegistry = (function () {
         }
         // Matches some beginning part of the given URL
         var possibleMatches = componentRecognizer.recognize(parsedUrl);
-        var matchPromises = possibleMatches.map(function (candidate) { return _this._completePrimaryRouteMatch(candidate); });
+        var matchPromises = ListWrapper.map(possibleMatches, function (candidate) { return _this._completePrimaryRouteMatch(candidate); });
         return PromiseWrapper.all(matchPromises).then(mostSpecific);
     };
     RouteRegistry.prototype._completePrimaryRouteMatch = function (partialMatch) {
@@ -2009,6 +2007,7 @@ var Router = (function () {
         this.hostComponent = hostComponent;
         this.navigating = false;
         this._currentInstruction = null;
+        this.nextInstruction = null;
         this._currentNavigation = _resolveToTrue;
         this._outlet = null;
         this._auxRouters = new Map();
@@ -2147,6 +2146,7 @@ var Router = (function () {
     };
     Router.prototype._navigate = function (instruction, _skipLocationChange) {
         var _this = this;
+        this.nextInstruction = instruction;
         return this._settleInstruction(instruction)
             .then(function (_) { return _this._canReuse(instruction); })
             .then(function (_) { return _this._canActivate(instruction); })
@@ -2349,7 +2349,7 @@ var Router = (function () {
             throw new BaseException("Link \"" + ListWrapper.toJSON(linkParams) + "\" must start with \"/\", \"./\", or \"../\"");
         }
         if (rest[rest.length - 1] == '') {
-            rest.pop();
+            ListWrapper.removeLast(rest);
         }
         if (rest.length < 1) {
             var msg = "Link \"" + ListWrapper.toJSON(linkParams) + "\" must include a route name.";

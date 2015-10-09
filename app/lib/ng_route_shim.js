@@ -25,6 +25,16 @@
 
     // Connects the legacy $routeProvider config shim to Component Router's config.
     .run(['$route', '$router', function ($route, $router) {
+
+      // this is here because of a circular dependency
+      Object.defineProperties($route.current, {
+        params: {
+          get: function () {
+            return $router.nextInstruction ? $router.nextInstruction.component.params : {};
+          }
+        }
+      });
+
       $route.$$subscribe(function (routeDefinition) {
         if (!angular.isArray(routeDefinition)) {
           routeDefinition = [routeDefinition];
@@ -207,6 +217,8 @@
       var $route = {
         routes: routeMap,
 
+        current: {},
+
         /**
          * @ngdoc method
          * @name $route#reload
@@ -293,6 +305,12 @@
           }
 
           var href = element.attr(hrefAttrName);
+          if (href.charAt(0) == '#') {
+            href = href.substr(1);
+          }
+          if (href.charAt(0) != '/') {
+            href = '/' + href;
+          }
           if (href && $router.recognize(href)) {
             $router.navigateByUrl(href);
             event.preventDefault();
