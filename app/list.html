@@ -1,5 +1,7 @@
-	<md-list>
-		<md-list-item ng-repeat="exercise in ctrl.exercises">
-				<a href="#/edit/{{exercise.id}}">{{exercise.name}}</a>
-		</md-list-item>
-	</md-list>
+<h2>Exercises</h2>
+<md-button class="md-primary md-raised" ng-href="add">Add an Exercise</md-button>
+<md-list>
+	<md-list-item ng-repeat="exercise in ctrl.exercises">
+			<a href="#/edit/{{exercise.id}}">{{exercise.name}}</a>
+	</md-list-item>
+</md-list>

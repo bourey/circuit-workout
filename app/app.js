@@ -33,7 +33,7 @@ var editCtrl = ['$location', 'exerciseService', 'exercise',
   }];
 
 // Generate workout controller
-var generateCtrl = ['exerciseService', function(exerciseService) {
+var generateCtrl = ['$location', function($location) {
   this.breakSecs = 15;
   this.workSecs = 45;
   this.exercisesPerStation = 1;
@@ -42,16 +42,35 @@ var generateCtrl = ['exerciseService', function(exerciseService) {
   this.allowEquipment = true;
 
   this.generate = function() {
-    this.selected = exerciseService.getWorkout(this.stationsPerRound, this.allowEquipment);
+    $location.url('workout?breakSecs=' + this.breakSecs + '&workSecs=' + this.workSecs + 
+      '&exercises=' + this.exercisesPerStation + '&stations=' + this.stationsPerRound + 
+      '&rounds=' + this.rounds + '&allowEquipment=' + this.allowEquipment);
   }.bind(this);
 }];
+
+
+// Generate workout controller
+var workoutCtrl = ['$location', 'exerciseService', function($location, exerciseService) {
+  // Get our workout configuration from the URL params.
+  var params = $location.search();
+  this.breakSecs = params['breakSecs'];
+  this.workSecs = params['workSecs'];
+  this.exercisesPerStation = params['exercises'];
+  this.stationsPerRound = params['stations'];
+  this.rounds = params['rounds'];
+  this.allowEquipment = params['allowEquipment'];
+
+  // Generate a workout for this config.
+  this.selected = exerciseService.getWorkout(this.stationsPerRound, this.allowEquipment);
+}];
+
 
 
 // ROUTE CONFIG
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
-    .when('/', { 
+    .when('/list', { 
       controller: listCtrl,
       controllerAs: 'ctrl',
       templateUrl: 'list.html',
@@ -71,9 +90,13 @@ app.config(['$routeProvider', function($routeProvider) {
         exercise: ['$route', 'exerciseService', function($route, exerciseService) {
           return exerciseService.getExercise($route.current.params.id);
         }]},
-    }).when('/generate', {
+    }).when('/', {
       controller: generateCtrl,
       controllerAs: 'ctrl',
       templateUrl: 'generate.html',
+    }).when('/workout', {
+      controller: workoutCtrl,
+      controllerAs: 'ctrl',
+      templateUrl: 'workout.html',
     });
 }]);

@@ -47,7 +47,7 @@ class ExerciseService {
 		}
 
 		saveExercise(exercise: Exercise) {
-				if (exercise.id !== undefined) {
+				if (exercise.id == undefined) {
 						exercise.id = this.exercises.length;
 						this.exercises.push(exercise);
 				} else {

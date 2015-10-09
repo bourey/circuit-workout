@@ -1,4 +1,5 @@
-<form name="form" layout-padding ng-submit="ctrl.generate()" ng-if="!ctrl.selected" style="max-width: 300px">
+<h2>Workout Options</h2>
+<form name="form" layout-padding ng-submit="ctrl.generate()" style="max-width: 300px">
 	<md-input-container>
 		<label>Workout time per station</label>
 		<md-select ng-model="ctrl.workSecs">
@@ -43,43 +44,3 @@
 		<md-button class="md-primary" ng-click="form.submit()">Go!</md-button>
 	</div>
 </form>
-
-<div ng-if="ctrl.selected" layout-padding>
-	<div layout-center>
-		<md-button class="md-raised md-primary">Wooo workout! START!</md-button>
-	</div>
-
-  <md-grid-list
-        md-cols="12"
-        md-row-height="3:2"
-        md-gutter="12px" md-gutter-gt-sm="8px">
-    <md-grid-tile ng-repeat-start="exercise in ctrl.selected" class="work-block"
-        md-rowspan="2" md-colspan="3"
-        ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
-        <div layout="column">
-	        <h3>{{exercise.name}}</h3>
-	      	<p>{{ctrl.workSecs}} seconds</p>
-      	</div>
-    </md-grid-tile>
-    <md-grid-tile ng-repeat-end class="rest-block"
-        md-rowspan="2" md-colspan="1" ng-if="!$last">
-        <div layout="column">
-	        <h3>Rest</h3>
-        	<p>{{ctrl.breakSecs}} seconds</p>
-        </div>
-    </md-grid-tile>
-    <md-grid-tile class="rest-block"
-        md-rowspan="2" md-colspan="3" layout-row>
-        <div layout="column">
-	      	<h3>Rest</h3>
-					<p>{{ctrl.workSecs + ctrl.breakSecs}} seconds</p>
-				</div>
-    </md-grid-tile>
-  </md-grid-list>	
-	<p>
-		<a href="javascript:;" ng-click="ctrl.generate()">
-			Ugh, no. I am not doing this.  Next workout, please . . .
-		</a>
-	</p>
-</div>
-

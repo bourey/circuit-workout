@@ -1,25 +1,28 @@
-<form name="form" ng-submit="ctrl.save()" layout-padding>
-	<md-input-container>
-		<label>Name</label>
-		<input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="30">
+<div layout-padding>
+	<h2>{{ctrl.exercise.id == undefined ? 'Create' : 'Edit'}} Exercise</h2>
+	<form name="form" ng-submit="ctrl.save()">
+		<md-input-container>
+			<label>Name</label>
+			<input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="30">
 
-		<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
-			<div ng-message="required">Name is required</div>
+			<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
+				<div ng-message="required">Name is required</div>
+			</div>
+
+			<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && ctrl.ng14">
+				<div ng-message="required">Name is required</div>
+				<div ng-messages-include="error.html"></div>
+			</div>
+
+		</md-input-container>
+		<md-input-container>
+			<md-checkbox ng-model="ctrl.exercise.requiresEquipment">
+				Requires equipment
+			</md-checkbox>
+		</md-input-container>
+		<div>
+			<md-button ng-click="ctrl.cancel()">Cancel</md-button>
+			<md-button ng-click="form.submit()" class="md-primary">Save</md-button>
 		</div>
-
-		<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && ctrl.ng14">
-			<div ng-message="required">Name is required</div>
-			<div ng-messages-include="error.html"></div>
-		</div>
-
-	</md-input-container>
-	<md-input-container>
-		<md-checkbox ng-model="ctrl.exercise.requiresEquipment">
-			Requires equipment
-		</md-checkbox>
-	</md-input-container>
-	<div>
-		<md-button ng-click="ctrl.cancel()">Cancel</md-button>
-		<md-button ng-click="form.submit()" class="md-primary">Save</md-button>
-	</div>
-</form>
+	</form>
+</div>
