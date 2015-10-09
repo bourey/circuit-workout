@@ -1,7 +1,7 @@
 <form name="form" ng-submit="ctrl.save()" layout-padding>
 	<md-input-container>
 		<label>Name</label>
-		<input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="10">
+		<input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="30">
 
 		<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
 			<div ng-message="required">Name is required</div>
