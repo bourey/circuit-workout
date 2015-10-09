@@ -1,4 +1,4 @@
-<form name="form" ng-submit="ctrl.save()">
+<form name="form" ng-submit="ctrl.save()" layout-padding>
 	<md-input-container>
 		<label>Name</label>
 		<input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="10">
@@ -12,10 +12,6 @@
 			<div ng-messages-include="error.html"></div>
 		</div>
 
-	</md-input-container>
-	<md-input-container>
-		<label>Description</label>
-		<textarea ng-model="ctrl.exercise.description" rows="1"></textarea>
 	</md-input-container>
 	<md-input-container>
 		<md-checkbox ng-model="ctrl.exercise.requiresEquipment">

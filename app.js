@@ -1,98 +1,74 @@
-var app = angular.module('CircuitApp', ['ngMaterial', 'ngMessages', 'ngRouteShim', 'ngComponentRouter', 'ngAnimate'])
-  .config(function($mdThemingProvider) {
+// APP DEFINITION AND CONFIG
+
+var app = angular.module('CircuitApp', ['ngMaterial', 'ngMessages', 'ngAnimate',
+//  'ngRoute'
+  'ngRouteShim', 'ngComponentRouter', 
+  ]);
+
+app.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('teal').accentPalette('deep-orange');
-    });
+    })
+
+app.service('exerciseService', ExerciseService);
+
+
+// CONTROLLERS
 
 var listCtrl = ['exercises', function(exercises) {
-  this.exercises = exercises.json.exercises;
+  this.exercises = exercises;
 }];
 
-var viewCtrl = ['exercise', function(exercise) {
-  console.log(exercise)
-  this.exercise = exercise.json.exercises[1];
-}];
-
-var addCtrl = function() {
+var editCtrl = ['$location', 'exerciseService', 'exercise', function($location, exerciseService, exercise) {
+  this.exercise = exercise;
   this.ng14 = angular.version.minor > 3;
-};
-
-var editCtrl = ['$location', 'exercise', function($location, exercise) {
-  this.exercise = exercise.json.exercise[0];
-  this.ng14 = angular.version.indexOf('1.4' == 0);
 
   this.save = function() {
-    model.set({
-      json: {
-        exercises: {
-          0: {
-            name: this.name
-          }
-        }
-      }
-    }).then(function() {
-      $location.path('/view/0');
-    });
-  };
+    exerciseService.saveExercise(this.exercise);
+    $location.path('/');
+  }
 }];
 
-var generateCtrl = ['exercises', function(exercises) {
+var generateCtrl = ['exerciseService', function(exerciseService) {
   this.breakSecs = 15;
   this.workSecs = 45;
   this.rounds = 10;
   this.allowEquipment = false;
-  this.exercises = exercises.json.exercises;
 
   this.generate = function() {
-    var s =  Object.keys(this.exercises).map(
-        function(key) { 
-          return this.exercises[key]; 
-      }.bind(this)).filter(function(exercise) {
-        return exercise.requiresEquipment != true;
-      });
-    this.selected = s;
+    this.selected = exerciseService.getWorkout(10, true);
   };
 }];
 
-var getExercise = ['$route', function($route) {
-  console.log($route.current.params.id);
-  return model.get(["exercises", $route.current.params.id, ["id", "name", "type", "requiresEquipment"]]);
-}];
+
+// ROUTE CONFIG
 
 app.config(['$routeProvider', function($routeProvider) {
-  console.log($routeProvider);
   $routeProvider
     .when('/', { 
       controller: listCtrl,
       controllerAs: 'ctrl',
       templateUrl: 'list.html',
-      resolve: {
-        exercises: function() {
-          return model.get(["exercises", {from: 1, to: 20}, ["id", "name", "type", "requiresEquipment"]]);
-        }
-      },
+      resolve: { exercises: ['exerciseService', function(exerciseService) {
+       return exerciseService.getExercises();
+      }]}
     }).when('/add', { 
-      controller: addCtrl,
+      controller: editCtrl,
       controllerAs: 'ctrl',
-      templateUrl: 'edit.html'
+      templateUrl: 'edit.html',
+      resolve: { exercise: function() { new Exercise(); } }
     }).when('/edit/:id', { 
       controller: editCtrl,
       controllerAs: 'ctrl',
       templateUrl: 'edit.html',
-      resolve: { exercise: getExercise },
-    }).when('/view/:id', { 
-      controller: viewCtrl,
-      controllerAs: 'ctrl',
-      templateUrl: 'detail.html',
-      resolve: { exercise: getExercise },
+      resolve: { 
+        exercise: ['$route', 'exerciseService', function($route, exerciseService) {
+          console.log($route);
+          return exerciseService.getExercise($route.current.params.id);
+        }]},
     }).when('/generate', {
       controller: generateCtrl,
       controllerAs: 'ctrl',
       templateUrl: 'generate.html',
-      resolve: {
-        exercises: function() {
-          return model.get(["exercises", {from: 1, to: 20}, ["name", "type", "requiresEquipment"]]);
-        }
-      },
     });
 }]);

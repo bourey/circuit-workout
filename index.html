@@ -2,9 +2,10 @@
 <html ng-app="CircuitApp">
 	<head>
 		<title>Workout generator</title>
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
+
         <!--link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css"-->
-        <link rel="stylesheet" href="https://material.angularjs.org/0.10.0/angular-material.css">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
         <meta name="viewport" content="initial-scale=1" />
         <link rel="stylesheet" href="style.css">
@@ -14,6 +15,7 @@
             <h1>Workout generator</h1>
         </md-toolbar>
         <md-content>
+            <!--div ng-view-->
             <div ng-outlet>
             </div>
         </md-content>
@@ -28,16 +30,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-aria.min.js"></script>
-    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-messages.min.js"></script>
 
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script-->
     <script src="angular_1_router.js"></script>
     <script src="ng_route_shim.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.js"></script>
     <!--script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/falcor/0.1.13/falcor.all.min.js"></script>
-    <script src="data.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.js"></script>
+
+    <script src="exercise-service.js"></script>
     <script src="app.js"></script>
 
 	</body>

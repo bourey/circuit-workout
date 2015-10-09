@@ -1,0 +1,46 @@
+
+/* Angular Material 0.10 */
+[layout-padding], 
+[layout-padding] > [flex], 
+[layout-padding] > [flex-gt-sm], 
+[layout-padding] > [flex-md], 
+[layout-padding] > [flex-lt-lg] {
+	padding: 12px;
+}
+
+/* Angular Material 0.11 */
+.layout-padding, 
+.layout-padding>.flex, 
+.layout-padding>.flex-gt-sm, 
+.layout-padding>.flex-lt-lg, 
+.layout-padding>.flex-md {
+	padding: 12px;
+}
+
+
+/* Circuit workout block styles */
+
+.work-block,
+.rest-block {
+	color: white;
+	text-align: center;
+}
+
+.work-block h3,
+.rest-block h3 {
+	margin: 8px;
+}
+
+.work-block p,
+.rest-block p {
+	margin: 4px;
+}
+
+.work-block {
+	background-color: rgba(255,110,64,0.87);
+}
+
+.rest-block {
+	background-color: rgb(0,150,136)
+}
+
