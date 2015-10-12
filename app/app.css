@@ -44,3 +44,10 @@
 	background-color: rgb(0,150,136)
 }
 
+.work-block.current-block {
+	background-color: rgb(255,61,0);
+}
+
+.rest-block.current-block {
+	background-color: rgb(0,105,92);
+}

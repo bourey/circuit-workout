@@ -1,41 +1,57 @@
-<div layout-padding>
-
-	<h2>Workout</h2>
-
-	<div layout-center>
-		<md-button class="md-raised md-primary">Wooo workout! START!</md-button>
+<div layout="column" layout-fill>
+<md-toolbar>
+    <h1>Circuit trainer</h1>
+</md-toolbar>
+<md-toolbar>
+	<div class="md-toolbar-tools">
+		<md-button ng-click="ctrl.start()" ng-show="!ctrl.running">
+			Wooo workout! START!
+		</md-button>
+		<md-button ng-click="ctrl.pause()" ng-show="ctrl.running">
+			Pause
+		</md-button>
+		<p ng-show="ctrl.seconds != undefined">{{ctrl.seconds}} seconds left</p>
 	</div>
+</md-toolbar>
 
+
+<md-content>
+<div layout-padding>
   <md-grid-list
         md-cols="12"
         md-row-height="3:2"
         md-gutter="12px" md-gutter-gt-sm="8px">
     <md-grid-tile ng-repeat-start="exercise in ctrl.selected" class="work-block"
         md-rowspan="2" md-colspan="3"
-        ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
-        <div layout="column">
+        ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}"
+        ng-class="{'current-block': ctrl.index == $index && ctrl.atStation}">
+        <div layout="column" id="work{{$index}}">
 	        <h3>{{exercise.name}}</h3>
 	      	<p>{{ctrl.workSecs}} seconds</p>
       	</div>
     </md-grid-tile>
     <md-grid-tile ng-repeat-end class="rest-block"
+		    ng-class="{'current-block': ctrl.index == $index && !ctrl.atStation}"
         md-rowspan="2" md-colspan="1" ng-if="!$last">
-        <div layout="column">
+        <div layout="column" id="break{{$index}}">
 	        <h3>Rest</h3>
         	<p>{{ctrl.breakSecs}} seconds</p>
         </div>
     </md-grid-tile>
     <md-grid-tile class="rest-block"
-        md-rowspan="2" md-colspan="3" layout-row>
-        <div layout="column">
+        md-rowspan="2" md-colspan="3"
+        ng-class="{'current-block': ctrl.index == ctrl.stationsPerRound-1 && !ctrl.atStation}">
+        <div layout="column" id="break{{ctrl.stationsPerRound-1}}">
 	      	<h3>Rest</h3>
 					<p>{{ctrl.workSecs + ctrl.breakSecs}} seconds</p>
 				</div>
     </md-grid-tile>
   </md-grid-list>	
 	<p>
-		<a href="javascript:;" ng-click="ctrl.generate()">
+		<a href="javascript:;" ng-click="ctrl.refresh()">
 			Ugh, no. I am not doing this.  Next workout, please . . .
 		</a>
 	</p>
+</div>
+</md-content>
 </div>

@@ -5,6 +5,10 @@
 			<label>Name</label>
 			<input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="30">
 
+			<!--div class="errors" ng-messages="form.name.$error" ng-messages-include="error.html">
+				<div ng-message="required">Name is required</div>
+			</div-->
+
 			<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
 				<div ng-message="required">Name is required</div>
 			</div>

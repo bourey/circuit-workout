@@ -1,7 +1,7 @@
 // APP DEFINITION AND CONFIG
 
 var app = angular.module('CircuitApp', ['ngMaterial', 'ngMessages', 'ngAnimate',
-//  'ngRoute'
+ // 'ngRoute'
   'ngRouteShim', 'ngComponentRouter', 
   ]);
 
@@ -50,18 +50,57 @@ var generateCtrl = ['$location', function($location) {
 
 
 // Generate workout controller
-var workoutCtrl = ['$location', 'exerciseService', function($location, exerciseService) {
+var workoutCtrl = ['$anchorScroll', '$location', '$interval', '$timeout', 'exerciseService', 
+function($anchorScroll, $location, $interval, $timeout, exerciseService) {
   // Get our workout configuration from the URL params.
   var params = $location.search();
-  this.breakSecs = params['breakSecs'];
-  this.workSecs = params['workSecs'];
-  this.exercisesPerStation = params['exercises'];
-  this.stationsPerRound = params['stations'];
+  this.breakSecs = Number(params['breakSecs']);
+  this.workSecs = Number(params['workSecs']);
+  this.exercisesPerStation = Number(params['exercises']);
+  this.stationsPerRound = Number(params['stations']);
   this.rounds = params['rounds'];
   this.allowEquipment = params['allowEquipment'];
 
-  // Generate a workout for this config.
-  this.selected = exerciseService.getWorkout(this.stationsPerRound, this.allowEquipment);
+  this.refresh = function() {
+    this.running = false;
+    // Generate a workout for this config.
+    this.selected = exerciseService.getWorkout(this.stationsPerRound, this.allowEquipment);
+  };
+  this.refresh();
+
+  var step = function() {
+    this.atStation = !this.atStation;
+    this.seconds = this.atStation ? this.workSecs : this.breakSecs;
+    if (this.atStation) {
+      this.index++;
+    }
+    $location.hash((this.atStation ? 'work' : 'break') + this.index);
+
+    this.timer = $interval(function() {
+      if (this.seconds == 0) {
+        $interval.cancel(this.timer);
+        if (this.index < this.stationsPerRound || this.atStation) {
+          step();
+        }
+      } else {
+        this.seconds--;
+      }
+    }.bind(this), 1000);   
+  }.bind(this);
+
+  this.start = function() {
+    this.atStation = false;
+    this.seconds = this.workSecs;
+    this.index = -1;
+    this.running = true;
+    step();
+  };
+
+  this.pause = function() {
+    $interval.cancel(this.timer);
+    this.running = false;
+  };
+
 }];
 
 

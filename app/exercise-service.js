@@ -5,94 +5,29 @@ function Exercise(name, types, requiresEquipment) {
   this.requiresEquipment = !!requiresEquipment;
 };
 
+// class Exercise {
+//     id: number;
+//     name: string;
+//     types: Array<string>;
+//     requiresEquipment: boolean;
+
+//     constructor(name?, types?, requiresEquipment?) {
+//         this.name = name || '';
+//         this.types = types || [];
+//         this.requiresEquipment = !!requiresEquipment;
+//     }
+// }
+
+
 var ExerciseService = function() {
-  this.exercises = [
-    {
-      name: "Mountain climbers",
-      type: ["core"],
-    },
-    {
-      name: "Jumping jacks",
-      type: ["cardio"],
-    },
-    {
-      name: "Biceps curl",
-      requiresEquipment: true,
-      type: ["upper"],
-    },
-    {
-      name: "Shoulder raise",
-      requiresEquipment: true,
-      type: ["upper"],
-    },
-    {
-      name: "Shoulder press",
-      requiresEquipment: true,
-      type: ["upper"],
-    },
-    {
-      name: "Biceps curl + shoulder press",
-      requiresEquipment: true,
-      type: ["upper", "lower"],
-    },
-    {
-      name: "Squats",
-      type: ["lower"],
-    },
-    {
-      name: "Squat jumps",
-      type: ["lower", "cardio"],
-    },
-    {
-      name: "Lunges (forward)",
-      type: ["lower"],
-    },
-    {
-      name: "Lunges (back)",
-      type: ["lower"],
-    },
-    {
-      name: "Lunges (side)",
-      type: ["lower"],
-    },
-    {
-      name: "Lunge with biceps curl",
-      requiresEquipment: true,
-      type: ["lower"],
-    },
-    {
-      name: "Squat with shoulder raise",
-      requiresEquipment: true,
-      type: ["lower"],
-    },
-    {
-      name: "Row",
-      requiresEquipment: true,
-      type: ["upper"],
-    },
-    {
-      name: "Bridge",
-      type: ["core"],
-    },
-    {
-      name: "Hip raise",
-      type: ["core"],
-    },
-    {
-      name: "Plank",
-      type: ["core"],
-    },
-    {
-      name: "Side plank",
-      type: ["core"],
-    },
-  ];
+  this.exercises = [];
+  // private exercises: Array<Exercise>;
 
   var addExercise = function(name, types, requiresEquipment) {
     var exercise = new Exercise(name, types, requiresEquipment);
     exercise.id = this.exercises.length;
     this.exercises.push(exercise);
-  };
+  }.bind(this);
 
   addExercise("Mountain climbers", ["core"]);
   addExercise("Jumping jacks", ["cardio"]);
@@ -160,13 +95,13 @@ var ExerciseService = function() {
     // Build a workout from the random order, attempting to balance among exercise
     // types.
     for (var i = 0; i < available.length && workout.length < numStations; i++) {
-      if (available[i].type.some(function(type) {
+      if (available[i].types.some(function(type) {
         return count[type] == limit;
       })) {
         rejected.push(available[i]);
       } else {
         workout.push(available[i]);
-        available[i].type.forEach(function(type) {
+        available[i].types.forEach(function(type) {
           count[type]++;
         });
       }

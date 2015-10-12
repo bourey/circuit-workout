@@ -1,3 +1,4 @@
 .tscache
 app/app-ts.js
+coverage
 node_modules
