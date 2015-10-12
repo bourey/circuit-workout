@@ -5,23 +5,9 @@ function Exercise(name, types, requiresEquipment) {
   this.requiresEquipment = !!requiresEquipment;
 };
 
-// class Exercise {
-//     id: number;
-//     name: string;
-//     types: Array<string>;
-//     requiresEquipment: boolean;
-
-//     constructor(name?, types?, requiresEquipment?) {
-//         this.name = name || '';
-//         this.types = types || [];
-//         this.requiresEquipment = !!requiresEquipment;
-//     }
-// }
-
 
 var ExerciseService = function() {
   this.exercises = [];
-  // private exercises: Array<Exercise>;
 
   var addExercise = function(name, types, requiresEquipment) {
     var exercise = new Exercise(name, types, requiresEquipment);
