@@ -47,18 +47,17 @@ The following instructions walk through several version upgrades.
 
 ## Exercise 1: Angular Upgrade
 
-Goal: Find a bug using integration tests and fix using conditional code.
+*Goal: Find a bug using integration tests and fix using conditional code.*
 
-In index.html, replace angular 1.3 source imports with 1.4.
-Run the integration test suite and observe test failure.
-Visit #/add in the browser and examine the JS console failures.
-
-Add the following to the editCtrl in app.js:
+1. In index.html, replace angular 1.3 source imports with 1.4.
+2. Run the integration test suite and observe test failure.
+3. Visit #/add in the browser and examine the JS console failures.
+4. Add the following to the editCtrl in app.js:
 ```
 this.ng14 = angular.version.minor > 3;
 ```
 
-Replace
+5. Replace
 
 ```
 <div class="errors" ng-messages="form.name.$error" ng-messages-include="error.html">
@@ -79,16 +78,17 @@ with
 </div>
 ```
 
-Re-run the integration tests and observe that they pass.
+6. Re-run the integration tests and observe that they pass.
 
 
 ## Exercise 2: Angular Material upgrade
 
-Goal: use screenshot tests to identify visual differences caused by a CSS refactor.
+*Goal: use screenshot tests to identify visual differences caused by a CSS refactor.*
 
-Replace angular material 0.10 imports with 0.11 (both CSS and jS).
-Run screenshot tests and observe the padding difference.
-Add the following to app.css:
+1. Before starting, run the screenshot tests once to generate a clean reference image.
+2. Replace angular material 0.10 imports with 0.11 (both CSS and jS).
+3. Run screenshot tests and observe the padding difference.
+4. Add the following to app.css:
 ```
 .layout-padding, 
 .layout-padding>.flex, 
@@ -98,31 +98,31 @@ Add the following to app.css:
 	padding: 12px;
 }
 ```
-Re-run the screenshot tests and observe they are passing again.
+5. Re-run the screenshot tests and observe they are passing again.
 
 
 ## Exercise 3: Component Router adoption
 
-Goal: iterative adoption of a new library.
+*Goal: iterative adoption of a new library.*
 
-In index.html:
-* Comment out the angular-route.js inclusion and comment in the router and shim libraries.
-* Replace `<div ng-view>` with `<div ng-outlet>`.
-In app.js:
-* Replace the `'ngRoute'` dependency and comment in `'ngShim', 'ngComponentRouter'`.
+1. In index.html replace the angular.min.js import with
+```
+<script src="lib/angular_1_router.js"></script>
+<script src="lib/ng_route_shim.js"></script>
+```
+2. Also in index.html, replace `<div ng-view>` with `<div ng-outlet>`.
+3. In app.js, replace the `'ngRoute'` dependency with `'ngShim', 'ngComponentRouter'`.
 
 
 ## Exercise 4: TypeScript adoption
 
-Goal: iterative adoption of a new library.
+*Goal: iterative adoption of a new library.*
 
-Run `grunt` to start the TypeScript file watcher and compiler.
-Rename `exercise-service.js` to `exercise-service.ts`.  
-In index.html, replace the `exercise-service.js` import with `app-ts.js`.
-
-Observe that our app still works!
-
-Replace the Exercise function with
+1. Run `grunt` to start the TypeScript file watcher and compiler.
+2 .Rename `exercise-service.js` to `exercise-service.ts`.  
+3. In index.html, replace the `exercise-service.js` import with `app-ts.js`.
+4. Observe that our app still works!
+5. Replace the Exercise function with
 ```
 class Exercise {
     id: number;
@@ -137,8 +137,7 @@ class Exercise {
     }
 }
 ```
-
-Next, replace the first line of ExerciseService with
+6. Next, replace the first line of ExerciseService with
 
 ```
 private exercises: Array<Exercise>;
