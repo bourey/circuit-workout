@@ -43,11 +43,11 @@ var ExerciseService = function() {
   };
 
   this.saveExercise = function(exercise) {
-    if (exercise.id !== undefined) {
+    if (exercise.id == undefined) {
       exercise.id = this.exercises.length;
       this.exercises.push(exercise);
     } else {
-      this[exercise.id] = exercise;
+      this.exercises[exercise.id] = exercise;
     }
   };
 

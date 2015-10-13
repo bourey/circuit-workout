@@ -22,14 +22,6 @@
   position: absolute;
 }
 
-md-toolbar.workout-bar {
-  background-color: #fff;
-}
-
-md-toolbar.workout-bar svg {
-  fill: rgba(255,110,64,0.87);
-}
-
 /* Circuit workout block styles */
 
 .work-block,
@@ -49,17 +41,17 @@ md-toolbar.workout-bar svg {
 }
 
 .work-block {
-  background-color: rgba(255,110,64,0.87);
+  background-color: #90CAF9;
 }
 
 .rest-block {
-  background-color: rgb(0,150,136)
+  background-color: #EF9A9A;
 }
 
 .work-block.current-block {
-  background-color: rgb(255,61,0);
+  background-color: #2196F3;
 }
 
 .rest-block.current-block {
-  background-color: rgb(0,105,92);
+  background-color: #F44336;
 }

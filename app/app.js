@@ -7,7 +7,7 @@ var app = angular.module('CircuitApp', ['ngMaterial', 'ngMessages', 'ngAnimate',
 
 app.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
-      .primaryPalette('teal').accentPalette('deep-orange');
+      .primaryPalette('blue').accentPalette('red');
     })
 
 app.service('exerciseService', ExerciseService);
@@ -37,9 +37,19 @@ var editCtrl = ['$location', 'exerciseService', 'exercise',
     this.exercise = exercise;
     this.ng14 = angular.version.minor > 3;
 
+    this.getTypes = function(search) {
+      return ['cardio', 'core', 'upper', 'lower'].filter(function(type) {
+        return type.indexOf(search) >= 0;
+      });
+    };
+
+    this.cancel = function() {
+      $location.path('/list');
+    };
+
     this.save = function() {
       exerciseService.saveExercise(this.exercise);
-      $location.path('/');
+      $location.path('/list');
     }
   }];
 
@@ -132,14 +142,14 @@ app.config(['$routeProvider', function($routeProvider) {
       controller: editCtrl,
       controllerAs: 'ctrl',
       templateUrl: 'edit.html',
-      resolve: { exercise: function() { new Exercise(); } }
+      resolve: { exercise: function() { return new Exercise(); } }
     }).when('/edit/:id', { 
       controller: editCtrl,
       controllerAs: 'ctrl',
       templateUrl: 'edit.html',
       resolve: { 
         exercise: ['$route', 'exerciseService', function($route, exerciseService) {
-          return exerciseService.getExercise($route.current.params.id);
+          return angular.copy(exerciseService.getExercise($route.current.params.id));
         }]},
     }).when('/', {
       controller: generateCtrl,
