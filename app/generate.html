@@ -1,10 +1,10 @@
 <div layout="column" layout-fill class="page-container">
   <ng-include src="'toolbar.html'"></ng-include>
-  <md-content layout-padding>
+  <md-content layout-padding layout="column">
 
     <h2>Workout Options</h2>
     <form name="form" ng-submit="ctrl.generate()" style="max-width: 300px">
-      <md-input-container>
+      <md-input-container flex>
         <label>Workout time per station</label>
         <md-select ng-model="ctrl.workSecs">
           <md-option value="5">5 seconds</md-option>
