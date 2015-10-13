@@ -1,32 +1,37 @@
-<div layout-padding>
-	<h2>{{ctrl.exercise.id == undefined ? 'Create' : 'Edit'}} Exercise</h2>
-	<form name="form" ng-submit="ctrl.save()">
-		<md-input-container>
-			<label>Name</label>
-			<input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="30">
+<div layout="column" layout-fill class="page-container">
+  <ng-include src="'toolbar.html'"></ng-include>
+  <md-content layout-padding>
 
-			<!--div class="errors" ng-messages="form.name.$error" ng-messages-include="error.html">
-				<div ng-message="required">Name is required</div>
-			</div-->
+    <h2>{{ctrl.exercise.id == undefined ? 'Create' : 'Edit'}} Exercise</h2>
+    <form name="form" ng-submit="ctrl.save()">
+      <md-input-container>
+        <label>Name</label>
+        <input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="30">
 
-			<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
-				<div ng-message="required">Name is required</div>
-			</div>
+        <!--div class="errors" ng-messages="form.name.$error" ng-messages-include="error.html">
+          <div ng-message="required">Name is required</div>
+        </div-->
 
-			<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && ctrl.ng14">
-				<div ng-message="required">Name is required</div>
-				<div ng-messages-include="error.html"></div>
-			</div>
+        <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
+          <div ng-message="required">Name is required</div>
+        </div>
 
-		</md-input-container>
-		<md-input-container>
-			<md-checkbox ng-model="ctrl.exercise.requiresEquipment">
-				Requires equipment
-			</md-checkbox>
-		</md-input-container>
-		<div>
-			<md-button ng-click="ctrl.cancel()">Cancel</md-button>
-			<md-button ng-click="form.submit()" class="md-primary">Save</md-button>
-		</div>
-	</form>
+        <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && ctrl.ng14">
+          <div ng-message="required">Name is required</div>
+          <div ng-messages-include="error.html"></div>
+        </div>
+
+      </md-input-container>
+      <md-input-container>
+        <md-checkbox ng-model="ctrl.exercise.requiresEquipment">
+          Requires equipment
+        </md-checkbox>
+      </md-input-container>
+      <div>
+        <md-button ng-click="ctrl.cancel()">Cancel</md-button>
+        <md-button ng-click="form.submit()" class="md-primary">Save</md-button>
+      </div>
+    </form>
+
+  </md-content>
 </div>

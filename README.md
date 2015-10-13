@@ -123,7 +123,7 @@ to ngMessages in 1.4.
 
 1. Run `grunt` to start the TypeScript file watcher and compiler.
 
-2 .Rename `exercise-service.js` to `exercise-service.ts`.  
+2. Rename `exercise-service.js` to `exercise-service.ts`.  
 
 3. In index.html, replace the `exercise-service.js` import with `app-ts.js`.
 

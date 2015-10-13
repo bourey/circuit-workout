@@ -1,46 +1,53 @@
-<h2>Workout Options</h2>
-<form name="form" ng-submit="ctrl.generate()" style="max-width: 300px">
-	<md-input-container>
-		<label>Workout time per station</label>
-		<md-select ng-model="ctrl.workSecs">
-			<md-option value="45">45 seconds</md-option>
-			<md-option value="120">2 minutes</md-option>
-		</md-select>
-	</md-input-container>
-	<md-input-container>
-		<label>Rest between stations</label>
-		<md-select ng-model="ctrl.breakSecs">
-			<md-option value="15">15 seconds</md-option>
-			<md-option value="30">30 seconds</md-option>
-		</md-select>
-	</md-input-container>
-	<md-input-container>
-		<label>Exercises per round</label>
-		<md-select ng-model="ctrl.exercisesPerStation">
-			<md-option value="1">1</md-option>
-			<md-option value="2">2</md-option>
-		</md-select>
-	</md-input-container>	
-	<md-input-container>
-		<label>Stations per round</label>
-		<md-select ng-model="ctrl.stationsPerRound">
-			<md-option value="5">5</md-option>
-			<md-option value="10">10</md-option>
-		</md-select>
-	</md-input-container>	
-	<md-input-container>
-		<label>Rounds</label>
-		<md-select ng-model="ctrl.rounds">
-			<md-option value="1">1</md-option>
-			<md-option value="2">2</md-option>
-		</md-select>
-	</md-input-container>	
-	<md-input-container>
-		<md-checkbox ng-model="ctrl.allowEquipment" aria-label="Equipment OK">
-			I'm at a gym
-		</md-checkbox>
-	</md-input-container>
-	<div>
-		<md-button class="md-primary" ng-click="form.submit()">Go!</md-button>
-	</div>
-</form>
+<div layout="column" layout-fill class="page-container">
+  <ng-include src="'toolbar.html'"></ng-include>
+  <md-content layout-padding>
+
+    <h2>Workout Options</h2>
+    <form name="form" ng-submit="ctrl.generate()" style="max-width: 300px">
+      <md-input-container>
+        <label>Workout time per station</label>
+        <md-select ng-model="ctrl.workSecs">
+          <md-option value="45">45 seconds</md-option>
+          <md-option value="120">2 minutes</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container>
+        <label>Rest between stations</label>
+        <md-select ng-model="ctrl.breakSecs">
+          <md-option value="15">15 seconds</md-option>
+          <md-option value="30">30 seconds</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container>
+        <label>Exercises per round</label>
+        <md-select ng-model="ctrl.exercisesPerStation">
+          <md-option value="1">1</md-option>
+          <md-option value="2">2</md-option>
+        </md-select>
+      </md-input-container>  
+      <md-input-container>
+        <label>Stations per round</label>
+        <md-select ng-model="ctrl.stationsPerRound">
+          <md-option value="5">5</md-option>
+          <md-option value="10">10</md-option>
+        </md-select>
+      </md-input-container>  
+      <md-input-container>
+        <label>Rounds</label>
+        <md-select ng-model="ctrl.rounds">
+          <md-option value="1">1</md-option>
+          <md-option value="2">2</md-option>
+        </md-select>
+      </md-input-container>  
+      <md-input-container>
+        <md-checkbox ng-model="ctrl.allowEquipment" aria-label="Equipment OK">
+          I'm at a gym
+        </md-checkbox>
+      </md-input-container>
+      <div>
+        <md-button class="md-primary" ng-click="form.submit()">Go!</md-button>
+      </div>
+    </form>
+
+  </md-content>
+</div>

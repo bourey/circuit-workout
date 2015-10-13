@@ -1,12 +1,12 @@
 describe("Exercise service", function() {
 
-	var service;
+  var service;
 
-	beforeEach(function() {
-		service = new ExerciseService();
-	});
+  beforeEach(function() {
+    service = new ExerciseService();
+  });
 
-	it("returns an exercise list", function() {
-		expect(service.getExercises().length).toBe(18);
-	});
+  it("returns an exercise list", function() {
+    expect(service.getExercises().length).toBe(18);
+  });
 });

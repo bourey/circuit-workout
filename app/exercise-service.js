@@ -34,11 +34,6 @@ var ExerciseService = function() {
   addExercise("Plank", ["core"]);
   addExercise("Side plank", ["core"]);
 
-  // Automatically initialize unique IDs for each exercise that match their position in the array.
-  this.exercises.forEach(function(exercise, i) {
-    exercise.id = i;
-  });
-
   this.getExercises = function() {
     return this.exercises;
   };

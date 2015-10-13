@@ -1,7 +1,24 @@
-<h2>Exercises</h2>
-<md-button class="md-primary md-raised" ng-href="add">Add an Exercise</md-button>
-<md-list>
-	<md-list-item ng-repeat="exercise in ctrl.exercises">
-			<a href="#/edit/{{exercise.id}}">{{exercise.name}}</a>
-	</md-list-item>
-</md-list>
+<div layout="column" layout-fill class="page-container">
+  <ng-include src="'toolbar.html'"></ng-include>
+  <md-content layout-padding>
+
+    <h2>
+      Exercises
+      <md-button class="md-fab md-primary md-raised" ng-href="add">
+        <md-icon md-svg-icon="add"></md-icon>
+      </md-button>
+    </h2>
+    <md-list>
+      <md-list-item ng-repeat="exercise in ctrl.exercises|orderBy:exercise.name"
+          ng-click="ctrl.editExercise(exercise.id)" class="md-2-line">
+          <div class="md-list-item-text">
+            <h3>{{exercise.name}}</h3>
+            <p>
+              <span ng-repeat="type in exercise.types">{{type}}{{ $last ? '' : ', '}}</span>
+            </p>
+          </div>
+      </md-list-item>
+    </md-list>
+
+  </md-content>
+</div>
