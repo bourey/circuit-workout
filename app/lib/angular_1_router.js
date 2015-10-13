@@ -21,10 +21,14 @@ angular.module('ng')
  */
 function compilerProviderDecorator($compileProvider, $$directiveIntrospectorProvider) {
   var directive = $compileProvider.directive;
-  $compileProvider.directive = function (name, factory) {
-    $$directiveIntrospectorProvider.register(name, factory);
-    return directive.apply(this, arguments);
+  $compileProvider.directive = function (name, originalFactory) {
+    var wrappedFactory = $$directiveIntrospectorProvider.register(name, originalFactory);
+    return directive.call(this, name, wrappedFactory);
   };
+}
+
+function wrapDirectiveFactory(originalFn) {
+
 }
 
 
@@ -32,20 +36,41 @@ function compilerProviderDecorator($compileProvider, $$directiveIntrospectorProv
  * private service that holds route mappings for each controller
  */
 function $$directiveIntrospectorProvider() {
+  var injector = angular.injector(); // only used for annotations
+
   var directiveBuffer = [];
   var directiveFactoriesByName = {};
+  var directiveDefinitionByName = {};
   var onDirectiveRegistered = null;
   return {
     register: function (name, factory) {
+      var unwrappedFactory,
+          annotationsArray;
+
       if (angular.isArray(factory)) {
-        factory = factory[factory.length - 1];
-      }
-      directiveFactoriesByName[name] = factory;
-      if (onDirectiveRegistered) {
-        onDirectiveRegistered(name, factory);
+        unwrappedFactory = factory[factory.length - 1];
+        annotationsArray = factory.slice(0, -1);
       } else {
-        directiveBuffer.push({name: name, factory: factory});
+        unwrappedFactory = factory;
+        annotationsArray = injector.annotate(factory).slice(0);
       }
+      directiveFactoriesByName[name] = unwrappedFactory;
+      if (onDirectiveRegistered) {
+        onDirectiveRegistered(name, unwrappedFactory);
+      } else {
+        directiveBuffer.push({name: name, factory: unwrappedFactory});
+      }
+
+      var wrappedFactory = function () {
+        var value = unwrappedFactory.apply(this, arguments);
+        if (typeof value === 'object') {
+          directiveDefinitionByName[name] = value;
+        }
+        return value;
+      };
+
+      annotationsArray.push(wrappedFactory);
+      return annotationsArray;
     },
     $get: function () {
       var fn = function (newOnControllerRegistered) {
@@ -58,6 +83,10 @@ function $$directiveIntrospectorProvider() {
 
       fn.getTypeByName = function (name) {
         return directiveFactoriesByName[name];
+      };
+
+      fn.getDefinitionObjectByName = function (name) {
+        return directiveDefinitionByName[name];
       };
 
       return fn;
@@ -80,7 +109,7 @@ function $$directiveIntrospectorProvider() {
  *
  * The value for the `ngOutlet` attribute is optional.
  */
-function ngOutletDirective($animate, $q, $router) {
+function ngOutletDirective($animate, $q, $router, $$directiveIntrospector, $templateRequest) {
   var rootRouter = $router;
 
   return {
@@ -187,18 +216,24 @@ function ngOutletDirective($animate, $q, $router) {
           cleanupLastView();
         });
 
-
         currentElement = clone;
         currentScope = newScope;
 
-        // TODO: prefer the other directive retrieving the controller
-        // by debug mode
-        currentController = currentElement.children().eq(0).controller(componentName);
+        var ddo = $$directiveIntrospector.getDefinitionObjectByName(componentName);
 
-        if (currentController && currentController.$onActivate) {
-          return currentController.$onActivate(instruction, previousInstruction);
+        var next;
+        if (ddo.templateUrl) {
+          next = $templateRequest(ddo.templateUrl)
+        } else {
+          next = $q.when();
         }
-        return $q.when();
+        return next.then(function () {
+          currentController = currentElement.children().eq(0).controller(componentName);
+
+          if (currentController && currentController.$onActivate) {
+            return currentController.$onActivate(instruction, previousInstruction);
+          }
+        });
       }
     });
   }
@@ -309,7 +344,7 @@ function dashCase(str) {
 }
 
 angular.module('ngComponentRouter').
-    factory('$router', ['$q', '$location', '$$directiveIntrospector', '$browser', '$rootScope', '$injector', routerFactory]);
+    factory('$router', ['$q', '$location', '$$directiveIntrospector', '$browser', '$rootScope', '$injector', '$route', routerFactory]);
 
 function routerFactory($q, $location, $$directiveIntrospector, $browser, $rootScope, $injector) {
 
