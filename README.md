@@ -53,30 +53,27 @@ The following instructions walk through several version upgrades.
 2. Run the integration test suite and observe test failure.
 3. Visit #/add in the browser and examine the JS console failures.
 4. Add the following to the editCtrl in app.js:
-```
-this.ng14 = angular.version.minor > 3;
-```
+        ```
+        this.ng14 = angular.version.minor > 3;
+        ```
 
 5. Replace
-
-```
-<div class="errors" ng-messages="form.name.$error" ng-messages-include="error.html">
-	<div ng-message="required">Name is required</div>
-</div>
-```
-
+        ```
+        <div class="errors" ng-messages="form.name.$error" ng-messages-include="error.html">
+        	<div ng-message="required">Name is required</div>
+        </div>
+        ```
 with
-
-```
-<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
-	<div ng-message="required">Name is required</div>
-</div>
-
-<div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && ctrl.ng14">
-	<div ng-message="required">Name is required</div>
-	<div ng-messages-include="error.html"></div>
-</div>
-```
+        ```
+        <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
+        	<div ng-message="required">Name is required</div>
+        </div>
+        
+        <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && ctrl.ng14">
+        	<div ng-message="required">Name is required</div>
+        	<div ng-messages-include="error.html"></div>
+        </div>
+        ```
 
 6. Re-run the integration tests and observe that they pass.
 
@@ -89,15 +86,15 @@ with
 2. Replace angular material 0.10 imports with 0.11 (both CSS and jS).
 3. Run screenshot tests and observe the padding difference.
 4. Add the following to app.css:
-```
-.layout-padding, 
-.layout-padding>.flex, 
-.layout-padding>.flex-gt-sm, 
-.layout-padding>.flex-lt-lg, 
-.layout-padding>.flex-md {
-	padding: 12px;
-}
-```
+        ```
+        .layout-padding, 
+        .layout-padding>.flex, 
+        .layout-padding>.flex-gt-sm, 
+        .layout-padding>.flex-lt-lg, 
+        .layout-padding>.flex-md {
+        	padding: 12px;
+        }
+        ```
 5. Re-run the screenshot tests and observe they are passing again.
 
 
@@ -106,10 +103,10 @@ with
 *Goal: iterative adoption of a new library.*
 
 1. In index.html replace the angular.min.js import with
-```
-<script src="lib/angular_1_router.js"></script>
-<script src="lib/ng_route_shim.js"></script>
-```
+        ```
+        <script src="lib/angular_1_router.js"></script>
+        <script src="lib/ng_route_shim.js"></script>
+        ```
 2. Also in index.html, replace `<div ng-view>` with `<div ng-outlet>`.
 3. In app.js, replace the `'ngRoute'` dependency with `'ngShim', 'ngComponentRouter'`.
 
@@ -123,23 +120,22 @@ with
 3. In index.html, replace the `exercise-service.js` import with `app-ts.js`.
 4. Observe that our app still works!
 5. Replace the Exercise function with
-```
-class Exercise {
-    id: number;
-    name: string;
-    types: Array<string>;
-    requiresEquipment: boolean;
-
-    constructor(name?, types?, requiresEquipment?) {
-        this.name = name || '';
-        this.types = types || [];
-        this.requiresEquipment = !!requiresEquipment;
-    }
-}
-```
+        ```
+        class Exercise {
+            id: number;
+            name: string;
+            types: Array<string>;
+            requiresEquipment: boolean;
+        
+            constructor(name?, types?, requiresEquipment?) {
+                this.name = name || '';
+                this.types = types || [];
+                this.requiresEquipment = !!requiresEquipment;
+            }
+        }
+        ```
 6. Next, replace the first line of ExerciseService with
-
-```
-private exercises: Array<Exercise>;
-```
+        ```
+        private exercises: Array<Exercise>;
+        ```
 
