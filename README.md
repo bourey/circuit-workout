@@ -51,7 +51,7 @@ interdependent, so you may skip exercises or approach them in any order you like
 
 *Goal: Find a bug using integration tests and fix using conditional code.*
 
-1. In index.html, replace angular 1.3 source imports with 1.4.
+1. In index.html, replace angular 1.3.17 source imports with 1.4.6.
 
 2. Run the integration test suite and observe the test failure.
 
@@ -84,7 +84,7 @@ to ngMessages in 1.4.
 
 1. Before starting, run the screenshot tests once to generate a clean reference image.
 
-2. Replace angular material 0.10 imports with 0.11 (both CSS and jS).
+2. Replace angular material 0.10.0 imports with 0.11.2 (both CSS and jS).
 
 3. Run screenshot tests and observe the padding difference.
 
@@ -115,6 +115,38 @@ to ngMessages in 1.4.
 2. Also in index.html, replace `<div ng-view>` with `<div ng-outlet>`.
 
 3. In app.js, replace the `'ngRoute'` dependency with `'ngShim', 'ngComponentRouter'`.
+
+4. Confirm that the app still works.
+
+5. Next, we can start to adopt some of the new features of the Component Router,
+such as its lifecycle hooks.  In app.js, comment out the listCtrl definition and
+route configuration, then add the following to the bottom of the file:
+
+        var listCtrl = ['$location', 'exerciseService', function($location, exerciseService) {
+          this.exercises = [];
+
+          this.editExercise = function(id) {
+            $location.url('/edit/' + id);
+          };
+            
+          this.$onActivate = function() {
+            this.exercises = exerciseService.getExercises();
+          };
+        }];
+        
+        app.directive('listDirective', function() {
+          return {
+            controller: listCtrl,
+            controllerAs: 'ctrl',
+            templateUrl: 'list.html'
+          };
+        });
+        
+        app.run(['$router', function ($router) {
+          $router.config([
+            { path: '/list', component: 'listDirective' }
+          ]);
+        }]);
 
 
 ## Exercise 4: TypeScript adoption
