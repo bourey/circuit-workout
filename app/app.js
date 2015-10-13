@@ -130,14 +130,14 @@ function($anchorScroll, $location, $interval, $timeout, exerciseService) {
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
-    .when('/list', { 
-      controller: listCtrl,
-      controllerAs: 'ctrl',
-      templateUrl: 'list.html',
-      resolve: { exercises: ['exerciseService', function(exerciseService) {
-       return exerciseService.getExercises();
-      }]}
-    })
+    // .when('/list', { 
+    //   controller: listCtrl,
+    //   controllerAs: 'ctrl',
+    //   templateUrl: 'list.html',
+    //   resolve: { exercises: ['exerciseService', function(exerciseService) {
+    //    return exerciseService.getExercises();
+    //   }]}
+    // })
     .when('/add', { 
       controller: editCtrl,
       controllerAs: 'ctrl',
@@ -162,27 +162,25 @@ app.config(['$routeProvider', function($routeProvider) {
     });
 }]);
 
-// var listCtrl = ['exerciseService', function(exerciseService) {
-//   this.exercises = [];
-// }];
+var listCtrl = ['exerciseService', function(exerciseService) {
+  this.exercises = [];
+    
+  this.$onActivate = function() {
+    console.log('hello');
+    this.exercises = exerciseService.getExercises();
+  };
+}];
 
-// listCtrl.$onActivate = function() {
-//   console.log('hello');
-//   this.exercises = exerciseService.getExercises();
-// };
+app.directive('listDirective', function() {
+  return {
+    controller: listCtrl,
+    controllerAs: 'ctrl',
+    templateUrl: 'list.html'
+  };
+});
 
-// app.directive('listDirective', function() {
-//   console.log(listCtrl.$onActivate);
-//   return {
-//     controller: listCtrl,
-//     controllerAs: 'ctrl',
-//     templateUrl: 'list.html',
-//     $onActivate: listCtrl.$onActivate
-//   };
-// });
-
-// app.run(['$router', function ($router) {
-//   $router.config([
-//     { path: '/list', component: 'listDirective' }
-//   ]);
-// }]);
+app.run(['$router', function ($router) {
+  $router.config([
+    { path: '/list', component: 'listDirective' }
+  ]);
+}]);
