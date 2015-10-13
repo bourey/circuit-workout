@@ -58,12 +58,15 @@ The following instructions walk through several version upgrades.
         ```
 
 5. Replace
+
         ```
         <div class="errors" ng-messages="form.name.$error" ng-messages-include="error.html">
         	<div ng-message="required">Name is required</div>
         </div>
         ```
+
 with
+
         ```
         <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
         	<div ng-message="required">Name is required</div>
