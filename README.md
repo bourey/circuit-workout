@@ -17,7 +17,7 @@ npm install
 
 ## Unit tests
 
-Just run `karma start`.
+Just run `karma start`!
 
 ## Integration tests
 
@@ -35,14 +35,16 @@ protractor e2e-tests/conf.js
 
 ## Screenshot tests
 
-Register with applitools for an API key, then enter this API key into ___.  Run
+Register with applitools for an API key, then enter this API key into ___.  Start selenium as
+described above, and then run
 ```
 protractor e2e-tests/conf-screenshot.js
 ```
 
 # Upgrade tutorial
 
-The following instructions walk through several version upgrades.
+The following instructions walk through several version upgrades.  These sample upgrades are not 
+interdependent, so you may skip exercises or approach them in any order you like!
 
 
 ## Exercise 1: Angular Upgrade
@@ -50,40 +52,45 @@ The following instructions walk through several version upgrades.
 *Goal: Find a bug using integration tests and fix using conditional code.*
 
 1. In index.html, replace angular 1.3 source imports with 1.4.
-2. Run the integration test suite and observe test failure.
+
+2. Run the integration test suite and observe the test failure.
+
 3. Visit #/add in the browser and examine the JS console failures.
-4. Add the following to the editCtrl in app.js:
+
+4. Visit [https://docs.angularjs.org/guide/migration] and look for the section on breaking changes
+to ngMessages in 1.4.
+
+5. Add the following to the editCtrl in app.js:
 
         this.ng14 = angular.version.minor > 3;
 
-5. Replace
+6. Replace the ```<div class="errors" . . . ``` block with 
 
-        <div class="errors" ng-messages="form.name.$error" ng-messages-include="error.html">
+        <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" 
+             ng-messages-include="error.html">
         	<div ng-message="required">Name is required</div>
-        </div>
-
-with
-
-        <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" ng-messages-include="error.html">
-        	<div ng-message="required">Name is required</div>
-        </div>
-        
+        </div>        
         <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && ctrl.ng14">
         	<div ng-message="required">Name is required</div>
         	<div ng-messages-include="error.html"></div>
         </div>
 
-6. Re-run the integration tests and observe that they pass.
+7. Re-run the integration tests and observe that they pass.
 
 
 ## Exercise 2: Angular Material upgrade
 
-*Goal: use screenshot tests to identify visual differences caused by a CSS refactor.*
+*Goal: Use screenshot tests to identify visual differences caused by a CSS refactor.*
 
 1. Before starting, run the screenshot tests once to generate a clean reference image.
+
 2. Replace angular material 0.10 imports with 0.11 (both CSS and jS).
+
 3. Run screenshot tests and observe the padding difference.
-4. Add the following to app.css:
+
+4. Visit [https://github.com/angular/material/blob/master/CHANGELOG.md#breaking-changes-2].
+
+5. Add the following to app.css:
 
         .layout-padding, 
         .layout-padding>.flex, 
@@ -93,7 +100,7 @@ with
         	padding: 12px;
         }
 
-5. Re-run the screenshot tests and observe they are passing again.
+6. Re-run the screenshot tests and observe they are passing again.
 
 
 ## Exercise 3: Component Router adoption
@@ -106,6 +113,7 @@ with
         <script src="lib/ng_route_shim.js"></script>
 
 2. Also in index.html, replace `<div ng-view>` with `<div ng-outlet>`.
+
 3. In app.js, replace the `'ngRoute'` dependency with `'ngShim', 'ngComponentRouter'`.
 
 
@@ -114,9 +122,13 @@ with
 *Goal: iterative adoption of a new library.*
 
 1. Run `grunt` to start the TypeScript file watcher and compiler.
+
 2 .Rename `exercise-service.js` to `exercise-service.ts`.  
+
 3. In index.html, replace the `exercise-service.js` import with `app-ts.js`.
+
 4. Observe that our app still works!
+
 5. Replace the Exercise function with
 
         class Exercise {
@@ -136,4 +148,4 @@ with
 
         private exercises: Array<Exercise>;
 
-
+7.  If the source code is examined in a TypeScript-aware editor, code completion will be available.
