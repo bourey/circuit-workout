@@ -1,5 +1,5 @@
 
-/* Angular Material 0.10 */
+/* Customize the layout padding */
 [layout-padding], 
 [layout-padding] > [flex], 
 [layout-padding] > [flex-gt-sm], 
@@ -7,16 +7,6 @@
 [layout-padding] > [flex-lt-lg] {
   padding: 12px;
 }
-
-/* Angular Material 0.11 */
-.layout-padding, 
-.layout-padding>.flex, 
-.layout-padding>.flex-gt-sm, 
-.layout-padding>.flex-lt-lg, 
-.layout-padding>.flex-md {
-  padding: 12px;
-}
-
 
 .page-container {
   position: absolute;

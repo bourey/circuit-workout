@@ -1,6 +1,6 @@
 var Eyes = require('eyes.protractor').Eyes;
 var eyes = new Eyes();
-eyes.setApiKey("YOURKEYHERE");
+eyes.setApiKey("Ij57RSlftpoGqNN19mfQ7lt4RwuwFQRfdcd0vjGFkfY110");
 
 describe('View exercises', function() {
 

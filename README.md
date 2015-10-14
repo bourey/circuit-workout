@@ -43,8 +43,9 @@ protractor e2e-tests/conf-screenshot.js
 
 # Upgrade tutorial
 
-The following instructions walk through several version upgrades.  These sample upgrades are not 
-interdependent, so you may skip exercises or approach them in any order you like!
+The following instructions walk through several version upgrades.  These sample 
+upgrades are not interdependent, so you may skip exercises or approach them in 
+any order you like!
 
 
 ## Exercise 1: Angular Upgrade
@@ -57,7 +58,8 @@ interdependent, so you may skip exercises or approach them in any order you like
 
 3. Visit #/add in the browser and examine the JS console failures.
 
-4. Visit [https://docs.angularjs.org/guide/migration] and look for the section on breaking changes
+4. Visit [https://docs.angularjs.org/guide/migration] and look for the section 
+on breaking changes
 to ngMessages in 1.4.
 
 5. Add the following to the editCtrl in app.js:
@@ -66,11 +68,13 @@ to ngMessages in 1.4.
 
 6. Replace the ```<div class="errors" . . . ``` block with 
 
-        <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && !ctrl.ng14" 
+        <div class="errors" ng-messages="form.name.$error" 
+             ng-if="form.$dirty && !ctrl.ng14" 
              ng-messages-include="error.html">
         	<div ng-message="required">Name is required</div>
         </div>        
-        <div class="errors" ng-messages="form.name.$error" ng-if="form.$dirty && ctrl.ng14">
+        <div class="errors" ng-messages="form.name.$error" 
+             ng-if="form.$dirty && ctrl.ng14">
         	<div ng-message="required">Name is required</div>
         	<div ng-messages-include="error.html"></div>
         </div>
@@ -80,9 +84,11 @@ to ngMessages in 1.4.
 
 ## Exercise 2: Angular Material upgrade
 
-*Goal: Use screenshot tests to identify visual differences caused by a CSS refactor.*
+*Goal: Use screenshot tests to identify visual differences caused by a CSS 
+refactor.*
 
-1. Before starting, run the screenshot tests once to generate a clean reference image.
+1. Before starting, run the screenshot tests once to generate a clean reference 
+image.
 
 2. Replace angular material 0.10.0 imports with 0.11.2 (both CSS and jS).
 
@@ -114,7 +120,8 @@ to ngMessages in 1.4.
 
 2. Also in index.html, replace `<div ng-view>` with `<div ng-outlet>`.
 
-3. In app.js, replace the `'ngRoute'` dependency with `'ngShim', 'ngComponentRouter'`.
+3. In app.js, replace the `'ngRoute'` dependency with `'ngShim', 
+'ngComponentRouter'`.
 
 4. Confirm that the app still works.
 
@@ -122,7 +129,8 @@ to ngMessages in 1.4.
 such as its lifecycle hooks.  In app.js, comment out the listCtrl definition and
 route configuration, then add the following to the bottom of the file:
 
-        var listCtrl = ['$location', 'exerciseService', function($location, exerciseService) {
+        var listCtrl = ['$location', 'exerciseService', 
+            function($location, exerciseService) {
           this.exercises = [];
 
           this.editExercise = function(id) {
@@ -180,4 +188,5 @@ route configuration, then add the following to the bottom of the file:
 
         private exercises: Array<Exercise>;
 
-7.  If the source code is examined in a TypeScript-aware editor, code completion will be available.
+7.  If the source code is examined in a TypeScript-aware editor, code completion 
+will be available.

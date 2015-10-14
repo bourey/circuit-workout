@@ -33,7 +33,6 @@ var listCtrl = ['$location', 'exercises', function($location, exercises) {
 var editCtrl = ['$location', 'exerciseService', 'exercise', 
   function($location, exerciseService, exercise) {
     this.exercise = exercise;
-    this.ng14 = angular.version.minor > 3;
 
     this.getTypes = function(search) {
       return ['cardio', 'core', 'upper', 'lower'].filter(function(type) {
