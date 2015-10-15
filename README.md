@@ -58,9 +58,8 @@ any order you like!
 
 3. Visit #/add in the browser and examine the JS console failures.
 
-4. Visit [https://docs.angularjs.org/guide/migration] and look for the section 
-on breaking changes
-to ngMessages in 1.4.
+4. Visit the [Angular migration guide](https://docs.angularjs.org/guide/migration) 
+and look for the section on breaking changes to ngMessages in 1.4.
 
 5. Add the following to the editCtrl in app.js:
 
@@ -94,7 +93,7 @@ image.
 
 3. Run screenshot tests and observe the padding difference.
 
-4. Visit [https://github.com/angular/material/blob/master/CHANGELOG.md#breaking-changes-3].
+4. Visit the [Angular Material release notes](https://github.com/angular/material/blob/master/CHANGELOG.md#breaking-changes-3).
 
 5. Add the following to app.css:
 
@@ -115,8 +114,8 @@ image.
 
 1. In index.html replace the angular.min.js import with
 
-        <script src="lib/angular_1_router.js"></script>
-        <script src="lib/ng_route_shim.js"></script>
+        <script src="lib/component-router/angular_1_router.js"></script>
+        <script src="lib/component-router/ng_route_shim.js"></script>
 
 2. Also in index.html, replace `<div ng-view>` with `<div ng-outlet>`.
 
