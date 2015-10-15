@@ -60,15 +60,17 @@ var generateCtrl = ['$location', function($location) {
   this.allowEquipment = true;
 
   this.generate = function() {
-    $location.url('workout?breakSecs=' + this.breakSecs + '&workSecs=' + this.workSecs + 
-      '&exercises=' + this.exercisesPerStation + '&stations=' + this.stationsPerRound + 
-      '&rounds=' + this.rounds + '&allowEquipment=' + this.allowEquipment);
+    $location.url('workout?breakSecs=' + this.breakSecs + '&workSecs=' + 
+      this.workSecs + '&exercises=' + this.exercisesPerStation + '&stations=' + 
+      this.stationsPerRound + '&rounds=' + this.rounds + '&allowEquipment=' + 
+      this.allowEquipment);
   }.bind(this);
 }];
 
 
 // Generate workout controller
-var workoutCtrl = ['$anchorScroll', '$location', '$interval', '$timeout', 'exerciseService', 
+var workoutCtrl = [
+    '$anchorScroll', '$location', '$interval', '$timeout', 'exerciseService', 
 function($anchorScroll, $location, $interval, $timeout, exerciseService) {
   // Get our workout configuration from the URL params.
   var params = $location.search();
@@ -82,7 +84,8 @@ function($anchorScroll, $location, $interval, $timeout, exerciseService) {
   this.refresh = function() {
     this.running = false;
     // Generate a workout for this config.
-    this.selected = exerciseService.getWorkout(this.stationsPerRound, this.allowEquipment);
+    this.selected = exerciseService.getWorkout(this.stationsPerRound, 
+        this.allowEquipment);
   };
   this.refresh();
 
@@ -145,9 +148,11 @@ app.config(['$routeProvider', function($routeProvider) {
       controllerAs: 'ctrl',
       templateUrl: 'edit.html',
       resolve: { 
-        exercise: ['$route', 'exerciseService', function($route, exerciseService) {
-          return angular.copy(exerciseService.getExercise($route.current.params.id));
-        }]},
+        exercise: ['$route', 'exerciseService', 
+            function($route, exerciseService) {
+              return angular.copy(exerciseService.getExercise(
+                $route.current.params.id));
+            }]},
     }).when('/', {
       controller: generateCtrl,
       controllerAs: 'ctrl',

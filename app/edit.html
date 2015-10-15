@@ -6,16 +6,19 @@
     <form name="form">
       <md-input-container>
         <label>Name</label>
-        <input name="name" ng-model="ctrl.exercise.name" required ng-maxlength="30">
+        <input name="name" ng-model="ctrl.exercise.name" 
+               required ng-maxlength="30">
 
-        <div class="errors" ng-messages="form.name.$error" ng-messages-include="error.html">
+        <div class="errors" ng-messages="form.name.$error" 
+             ng-messages-include="error.html">
           <div ng-message="required">Name is required</div>
         </div>
 
       </md-input-container>
       <md-input-container>
         <label>Types</label>
-        <md-chips ng-model="ctrl.exercise.types" md-autocomplete-snap md-require-match="true">
+        <md-chips ng-model="ctrl.exercise.types" md-autocomplete-snap 
+                  md-require-match="true">
           <md-autocomplete
               md-selected-item="ctrl.selectedItem"
               md-search-text="ctrl.searchText"

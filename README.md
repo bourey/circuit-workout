@@ -94,7 +94,7 @@ image.
 
 3. Run screenshot tests and observe the padding difference.
 
-4. Visit [https://github.com/angular/material/blob/master/CHANGELOG.md#breaking-changes-2].
+4. Visit [https://github.com/angular/material/blob/master/CHANGELOG.md#breaking-changes-3].
 
 5. Add the following to app.css:
 
@@ -120,7 +120,7 @@ image.
 
 2. Also in index.html, replace `<div ng-view>` with `<div ng-outlet>`.
 
-3. In app.js, replace the `'ngRoute'` dependency with `'ngShim', 
+3. In app.js, replace the `'ngRoute'` dependency with `'ngRouteShim', 
 'ngComponentRouter'`.
 
 4. Confirm that the app still works.
