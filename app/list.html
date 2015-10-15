@@ -9,7 +9,7 @@
       </md-button>
     </h2>
     <md-list>
-      <md-list-item ng-repeat="exercise in ctrl.exercises|orderBy:exercise.name"
+      <md-list-item ng-repeat="exercise in ctrl.exercises|orderBy:'name'"
           ng-click="ctrl.editExercise(exercise.id)" class="md-2-line">
           <div class="md-list-item-text">
             <h3>{{exercise.name}}</h3>
