@@ -183,9 +183,7 @@ route configuration, then add the following to the bottom of the file:
             }
         }
 
-6. Next, replace the first line of ExerciseService with
+6. Experiment with the code to observe the compiler working on the command line.
+If you're using a TypeScript-aware editor, you can also use code completion.
 
-        private exercises: Array<Exercise>;
-
-7.  If the source code is examined in a TypeScript-aware editor, code completion 
-will be available.
+7. For extra credit, convert ExerciseService to a class.
