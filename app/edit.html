@@ -10,6 +10,7 @@
                required ng-maxlength="30">
 
         <div class="errors" ng-messages="form.name.$error" 
+             ng-if="form.$dirty"
              ng-messages-include="error.html">
           <div ng-message="required">Name is required</div>
         </div>
