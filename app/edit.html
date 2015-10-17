@@ -10,9 +10,15 @@
                required ng-maxlength="30">
 
         <div class="errors" ng-messages="form.name.$error" 
-             ng-if="form.$dirty"
+             ng-if="form.$dirty && !ctrl.ng14"
              ng-messages-include="error.html">
           <div ng-message="required">Name is required</div>
+        </div>
+
+        <div class="errors" ng-messages="form.name.$error" 
+             ng-if="form.$dirty && ctrl.ng14">
+          <div ng-message="required">Name is required</div>
+          <div ng-messages-include="error.html"></div>
         </div>
 
       </md-input-container>
