@@ -126,8 +126,6 @@ image.
 3. In app.js, replace the `'ngRoute'` dependency with `'ngRouteShim', 
 'ngComponentRouter'`.
 
-[diff](https://github.com/bourey/circuit-workout/compare/component-router)
-
 4. Confirm that the app still works.
 
 5. Next, we can start to adopt some of the new features of the Component Router,
@@ -160,6 +158,8 @@ route configuration, then add the following to the bottom of the file:
             { path: '/list', component: 'listDirective' }
           ]);
         }]);
+
+[diff](https://github.com/bourey/circuit-workout/compare/component-router)
 
 
 ## Exercise 4: TypeScript adoption
