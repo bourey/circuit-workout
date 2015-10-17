@@ -1,10 +1,15 @@
+class Exercise {
+    id: number;
+    name: string;
+    types: Array<string>;
+    requiresEquipment: boolean;
 
-function Exercise(name, types, requiresEquipment) {
-  this.name = name;
-  this.types = types || [];
-  this.requiresEquipment = !!requiresEquipment;
-};
-
+    constructor(name?, types?, requiresEquipment?) {
+        this.name = name || '';
+        this.types = types || [];
+        this.requiresEquipment = !!requiresEquipment;
+    }
+}
 
 var ExerciseService = function() {
   this.exercises = [];
