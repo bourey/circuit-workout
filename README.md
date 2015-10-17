@@ -45,7 +45,8 @@ protractor e2e-tests/conf-screenshot.js
 
 The following instructions walk through several version upgrades.  These sample 
 upgrades are not interdependent, so you may skip exercises or approach them in 
-any order you like!
+any order you like!  If you get stuck, just refer to the diff at the end of each
+exercise.
 
 
 ## Exercise 1: Angular Upgrade
@@ -80,6 +81,7 @@ and look for the section on breaking changes to ngMessages in 1.4.
 
 7. Re-run the integration tests and observe that they pass.
 
+[diff](https://github.com/bourey/circuit-workout/compare/angular-upgrade)
 
 ## Exercise 2: Angular Material upgrade
 
@@ -107,6 +109,8 @@ image.
 
 6. Re-run the screenshot tests and observe they are passing again.
 
+[diff](https://github.com/bourey/circuit-workout/compare/material-upgrade)
+
 
 ## Exercise 3: Component Router adoption
 
@@ -121,6 +125,8 @@ image.
 
 3. In app.js, replace the `'ngRoute'` dependency with `'ngRouteShim', 
 'ngComponentRouter'`.
+
+[diff](https://github.com/bourey/circuit-workout/compare/component-router)
 
 4. Confirm that the app still works.
 
@@ -187,3 +193,5 @@ route configuration, then add the following to the bottom of the file:
 If you're using a TypeScript-aware editor, you can also use code completion.
 
 7. For extra credit, convert ExerciseService to a class.
+
+[diff](https://github.com/bourey/circuit-workout/compare/typescript)
