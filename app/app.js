@@ -1,7 +1,7 @@
 // APP DEFINITION AND CONFIG
 
 var app = angular.module('CircuitApp', ['ngMaterial', 'ngMessages', 'ngAnimate',
- 'ngRoute']);
+ 'ngRouteShim', 'ngComponentRouter']);
 
 app.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
@@ -22,11 +22,17 @@ app.config(function($mdIconProvider) {
 // CONTROLLERS
 
 // List controller
-var listCtrl = ['$location', 'exercises', function($location, exercises) {
-  this.exercises = exercises;
+var listCtrl = ['$location', 'exerciseService', 
+    function($location, exerciseService) {
+  this.exercises = [];
+
   this.editExercise = function(id) {
     $location.url('/edit/' + id);
-  }
+  };
+
+  this.$onActivate = function() {
+    this.exercises = exerciseService.getExercises();
+  };
 }];
 
 // Edit controller
@@ -130,14 +136,6 @@ function($anchorScroll, $location, $interval, $timeout, exerciseService) {
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
-    .when('/list', { 
-      controller: listCtrl,
-      controllerAs: 'ctrl',
-      templateUrl: 'list.html',
-      resolve: { exercises: ['exerciseService', function(exerciseService) {
-       return exerciseService.getExercises();
-      }]}
-    })
     .when('/add', { 
       controller: editCtrl,
       controllerAs: 'ctrl',
@@ -162,4 +160,18 @@ app.config(['$routeProvider', function($routeProvider) {
       controllerAs: 'ctrl',
       templateUrl: 'workout.html',
     });
+}]);
+
+app.directive('listDirective', function() {
+  return {
+    controller: listCtrl,
+    controllerAs: 'ctrl',
+    templateUrl: 'list.html'
+  };
+});
+
+app.run(['$router', function ($router) {
+  $router.config([
+    { path: '/list', component: 'listDirective' }
+  ]);
 }]);
