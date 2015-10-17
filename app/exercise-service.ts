@@ -11,43 +11,47 @@ class Exercise {
     }
 }
 
-var ExerciseService = function() {
-  this.exercises = [];
+class ExerciseService {
+  private exercises: Array<Exercise>;
 
-  var addExercise = function(name, types, requiresEquipment) {
+  private addExercise(name: string, types: Array<string>, 
+      requiresEquipment?:boolean) {
     var exercise = new Exercise(name, types, requiresEquipment);
     exercise.id = this.exercises.length;
     this.exercises.push(exercise);
-  }.bind(this);
+  };
 
-  addExercise("Mountain climbers", ["core"]);
-  addExercise("Jumping jacks", ["cardio"]);
-  addExercise("Biceps curl", ["upper"], true);
-  addExercise("Shoulder raise", ["upper"], true);
-  addExercise("Shoulder press", ["upper"], true);
-  addExercise("Bicpes curl + shoulder press", ["upper"], true);
-  addExercise("Squats", ["lower"]);
-  addExercise("Squat jumps", ["lower", "cardio"]);
-  addExercise("Lunges (forward)", ["lower"]);
-  addExercise("Lunges (back)", ["lower"]);
-  addExercise("Lunges (side)", ["lower"]);
-  addExercise("Lunge + biceps curl", ["lower", "upper"], true);
-  addExercise("Squat + shoulder raise", ["lower", "upper"], true);
-  addExercise("Row", ["upper"], true);
-  addExercise("Bridge", ["core"]);
-  addExercise("Hip raise", ["core"]);
-  addExercise("Plank", ["core"]);
-  addExercise("Side plank", ["core"]);
+  constructor() {
+    this.exercises = [];
+    this.addExercise("Mountain climbers", ["core"]);
+    this.addExercise("Jumping jacks", ["cardio"]);
+    this.addExercise("Biceps curl", ["upper"], true);
+    this.addExercise("Shoulder raise", ["upper"], true);
+    this.addExercise("Shoulder press", ["upper"], true);
+    this.addExercise("Bicpes curl + shoulder press", ["upper"], true);
+    this.addExercise("Squats", ["lower"]);
+    this.addExercise("Squat jumps", ["lower", "cardio"]);
+    this.addExercise("Lunges (forward)", ["lower"]);
+    this.addExercise("Lunges (back)", ["lower"]);
+    this.addExercise("Lunges (side)", ["lower"]);
+    this.addExercise("Lunge + biceps curl", ["lower", "upper"], true);
+    this.addExercise("Squat + shoulder raise", ["lower", "upper"], true);
+    this.addExercise("Row", ["upper"], true);
+    this.addExercise("Bridge", ["core"]);
+    this.addExercise("Hip raise", ["core"]);
+    this.addExercise("Plank", ["core"]);
+    this.addExercise("Side plank", ["core"]);
+  }
 
-  this.getExercises = function() {
+  getExercises = function() {
     return this.exercises;
   };
 
-  this.getExercise = function(id) {
+  getExercise = function(id) {
     return this.exercises[id];
   };
 
-  this.saveExercise = function(exercise) {
+  saveExercise = function(exercise) {
     if (exercise.id == undefined) {
       exercise.id = this.exercises.length;
       this.exercises.push(exercise);
@@ -56,7 +60,7 @@ var ExerciseService = function() {
     }
   };
 
-  this.getWorkout = function(numStations, allowEquipment) {
+  getWorkout = function(numStations, allowEquipment) {
     // If the user doesn't have access to equipment, filter those exercises out.
     var available;
     if (!allowEquipment) {
