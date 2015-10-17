@@ -8,6 +8,14 @@
   padding: 12px;
 }
 
+.layout-padding, 
+.layout-padding > .flex, 
+.layout-padding > .flex-gt-sm, 
+.layout-padding > .flex-md, 
+.layout-padding > .flex-lt-lg {
+  padding: 12px;
+}
+
 .page-container {
   position: absolute;
 }
