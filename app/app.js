@@ -70,8 +70,8 @@ var generateCtrl = ['$location', function($location) {
 
 // Generate workout controller
 var workoutCtrl = [
-    '$anchorScroll', '$location', '$interval', '$timeout', 'exerciseService', 
-function($anchorScroll, $location, $interval, $timeout, exerciseService) {
+    '$location', '$interval', '$timeout', 'exerciseService', 
+function($location, $interval, $timeout, exerciseService) {
   // Get our workout configuration from the URL params.
   var params = $location.search();
   this.breakSecs = Number(params['breakSecs']);
@@ -95,7 +95,6 @@ function($anchorScroll, $location, $interval, $timeout, exerciseService) {
     if (this.atStation) {
       this.index++;
     }
-    $location.hash((this.atStation ? 'work' : 'break') + this.index);
 
     this.timer = $interval(function() {
       if (this.seconds == 0) {
